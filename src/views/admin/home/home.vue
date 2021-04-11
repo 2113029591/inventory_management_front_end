@@ -2,6 +2,9 @@
   <div>
     <el-container class="home-container">
       <el-header class="header">
+        <div class="text" >
+          <h1>资源管理</h1>
+        </div>
         <div class="headerNavBar">
           <el-menu
               default-active="1"
@@ -48,19 +51,15 @@
                    background-color="#4b5f6e"
                    text-color="white"
                    :collapse="isCollapse">
-            <el-submenu index="1">
+            <el-menu-item index="1" @click="$router.push('/home/userManage')">
               <template slot="title">
                 <i class="el-icon-setting"></i>
-                <span slot="title">系统管理</span>
+                <span slot="title">用户管理</span>
               </template>
-              <el-menu-item index="1-1"
-                            >用户管理</el-menu-item>
-              <el-menu-item index="1-2"
-                            >菜单管理</el-menu-item>
-            </el-submenu>
-            <el-menu-item index="2">
+            </el-menu-item>
+            <el-menu-item index="2" @click="$router.push('/home/itemInformation')">
               <i class="el-icon-magic-stick"></i>
-              <span slot="title">导航一</span>
+              <span slot="title">库存信息</span>
             </el-menu-item>
             <el-menu-item index="3">
               <i class="el-icon-reading"></i>
@@ -69,7 +68,6 @@
           </el-menu>
         </el-aside>
         <el-main class="main">
-          main
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -80,12 +78,16 @@
 
 <script>
 import screenfull from 'screenfull'
+import userComponent from "@/views/admin/home/userManage/userComponent";
 export default {
   name: "home",
   data(){
     return{
       isCollapse:false,
     }
+  },
+  components:{
+    userComponent
   },
   methods:{
     loginOut () {
@@ -112,6 +114,13 @@ export default {
 </script>
 
 <style scoped>
+.text{
+  width: 230px;
+  float: left;
+  background: white;
+  color: black;
+  text-align: center;
+}
 .home-container{
   height: 100vh;
 }

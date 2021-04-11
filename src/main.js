@@ -3,8 +3,10 @@ import App from './App.vue'
 import router from "@/router";
 import store from "@/store";
 import "../src/plugins/elementUI"
+import PaginationFooter from '@/components/PaginationFooter'
 
 Vue.config.productionTip = false
+Vue.component("pagination-footer", PaginationFooter);
 
 new Vue({
   router,
