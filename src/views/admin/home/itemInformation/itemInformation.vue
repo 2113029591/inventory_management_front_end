@@ -1,29 +1,190 @@
 <template>
 <div>
+  <div class="add-and-query">
+    <div class="top-div-button">
+      <el-button type="primary" class="add-button"
+                 @click="dialogVisible = true">新增记录</el-button>
+    </div>
+    <el-form :inline="true"
+              :model="searchForm"
+              class="demo-form-inline search-form">
+    <el-form-item label="物品编码">
+      <el-input v-model="searchForm.user"
+                placeholder="物品编码"></el-input>
+    </el-form-item>
+    <el-form-item label="名称">
+      <el-input v-model="searchForm.phone"
+                placeholder="名称">
+      </el-input>
+    </el-form-item>
+      <el-form-item label="存放位置">
+        <el-input v-model="searchForm.phone"
+                  placeholder="存放位置">
+        </el-input>
+      </el-form-item>
+      <el-form-item label="厂商">
+        <el-input v-model="searchForm.phone"
+                  placeholder="厂商">
+        </el-input>
+      </el-form-item>
+    <el-form-item>
+      <el-button type="primary"
+                 @click="onSubmit">查询</el-button>
+    </el-form-item>
+  </el-form>
+  </div>
+
   <el-tabs v-model="activeName" @tab-click="handleClick" style="background: white">
     <el-tab-pane label="用户管理" name="first"><el-table
         :data="tableData"
         stripe
         style="width: 100%">
       <el-table-column
+          fixed
           prop="date"
-          label="日期"
-          width="180">
+          label="物品编码"
+          align="center"
+          >
       </el-table-column>
       <el-table-column
           prop="name"
-          label="姓名"
-          width="180">
+          label="名称"
+          align="center"
+          >
       </el-table-column>
       <el-table-column
           prop="address"
-          label="地址">
+          label="存放位置"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="address"
+          label="数量"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="address"
+          label="品牌"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="address"
+          label="型号"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="address"
+          label="厂商"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          fixed="right"
+          label="操作"
+          align="center">
+        <template slot-scope="scope">
+          <el-button @click="()=>{
+            handleClick(scope.row)
+            dialogVisibleItem=true
+          }" type="text" size="small">编辑</el-button>
+          <el-button type="text" size="small">删除</el-button>
+          <el-button type="text" size="small" @click="()=>{
+            dialogVisibleChange=true
+          }">借用</el-button>
+        </template>
       </el-table-column>
     </el-table></el-tab-pane>
     <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
     <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
     <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
   </el-tabs>
+
+  <el-dialog title="新增用户"
+             :visible.sync="dialogVisible"
+             width="80%">
+    <el-form :model="userData"
+             ref="userDataForm"
+             label-width="100px"
+             class="demo-ruleForm">
+      <el-form-item label="姓名"
+                    prop="name"
+                    :rules="[{ required: true, message: '姓名不能为空'},]">
+        <el-input type="text"
+                  v-model="userData.name"
+                  autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="地址"
+                    prop="address"
+                    :rules="[{ required: true, message: '地址不能为空'},]">
+        <el-input type="text"
+                  v-model="userData.address"
+                  autocomplete="off"></el-input>
+      </el-form-item>
+    </el-form>
+    <span slot="footer"
+          class="dialog-footer">
+                <el-button @click="closeDialog">取 消</el-button>
+                <el-button type="primary"
+                           @click="closeDialog">确 定</el-button>
+            </span>
+  </el-dialog>
+  <el-dialog title="编辑"
+             :visible.sync="dialogVisibleItem"
+             width="80%">
+    <el-form :model="userData"
+             ref="userDataForm"
+             label-width="100px"
+             class="demo-ruleForm">
+      <el-form-item label="姓名"
+                    prop="name"
+                    :rules="[{ required: true, message: '姓名不能为空'},]">
+        <el-input type="text"
+                  v-model="userData.name"
+                  autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="地址"
+                    prop="address"
+                    :rules="[{ required: true, message: '地址不能为空'},]">
+        <el-input type="text"
+                  v-model="userData.address"
+                  autocomplete="off"></el-input>
+      </el-form-item>
+    </el-form>
+    <span slot="footer"
+          class="dialog-footer">
+                <el-button @click="closeItemDialog">取 消</el-button>
+                <el-button type="primary"
+                           @click="closeItemDialog">确 定</el-button>
+            </span>
+  </el-dialog>
+  <el-dialog title="申请"
+             :visible.sync="dialogVisibleChange"
+             width="80%">
+    <el-form :model="userData"
+             ref="userDataForm"
+             label-width="100px"
+             class="demo-ruleForm">
+      <el-form-item label="姓名"
+                    prop="name"
+                    :rules="[{ required: true, message: '姓名不能为空'},]">
+        <el-input type="text"
+                  v-model="userData.name"
+                  autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="地址"
+                    prop="address"
+                    :rules="[{ required: true, message: '地址不能为空'},]">
+        <el-input type="text"
+                  v-model="userData.address"
+                  autocomplete="off"></el-input>
+      </el-form-item>
+    </el-form>
+    <span slot="footer"
+          class="dialog-footer">
+                <el-button @click="closeChangeDialog">取 消</el-button>
+                <el-button type="primary"
+                           @click="closeChangeDialog">确 定</el-button>
+            </span>
+  </el-dialog>
 </div>
 </template>
 
@@ -32,6 +193,21 @@ export default {
   name: "itemInformation",
   data() {
     return {
+      dialogVisible: false,
+      dialogVisibleItem:false,
+      dialogVisibleChange:false,
+
+      userData: {
+        date: '2018-08-16',
+        name: '',
+        address: ''
+      },
+      searchForm: {
+        currentPage: 1,
+        pageSize: 20,
+        user: '',
+        phone: ''
+      },
       activeName: 'first',
       tableData: [
           {
@@ -56,11 +232,27 @@ export default {
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
-    }
+    },
+    closeDialog(){
+      this.dialogVisible=!this.dialogVisible
+    },
+    closeItemDialog(){
+      this.dialogVisibleItem=!this.dialogVisibleItem
+    },
+    closeChangeDialog(){
+      this.dialogVisibleChange=!this.dialogVisibleChange
+    },
   }
 }
 </script>
 
 <style scoped>
-
+.add-and-query{
+  background: white;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.top-div-button{
+  margin: 10px;
+}
 </style>

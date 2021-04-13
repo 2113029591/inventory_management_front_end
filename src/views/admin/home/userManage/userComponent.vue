@@ -69,14 +69,21 @@
              ref="userDataForm"
              label-width="100px"
              class="demo-ruleForm">
-      <el-form-item label="姓名"
+      <el-form-item label="用户名"
                     prop="name"
                     :rules="[{ required: true, message: '姓名不能为空'},]">
         <el-input type="text"
                   v-model="userData.name"
                   autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="地址"
+      <el-form-item label="类型"
+                    prop="name"
+                    :rules="[{ required: true, message: '姓名不能为空'},]">
+        <el-input type="text"
+                  v-model="userData.name"
+                  autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="默认密码"
                     prop="address"
                     :rules="[{ required: true, message: '地址不能为空'},]">
         <el-input type="text"
@@ -153,7 +160,7 @@ name: "userComponent",
 
 <style scoped>
 .add-button{
-  margin: 20px 10px;
+  margin: 20px 60px;
 }
 .page-footer{
   display: flex;

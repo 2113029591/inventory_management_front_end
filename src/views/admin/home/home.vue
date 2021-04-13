@@ -61,9 +61,13 @@
               <i class="el-icon-magic-stick"></i>
               <span slot="title">库存信息</span>
             </el-menu-item>
-            <el-menu-item index="3">
+            <el-menu-item index="3" @click="$router.push('/home/itemChangeInformation')">
               <i class="el-icon-reading"></i>
-              <span slot="title">导航二</span>
+              <span slot="title">借阅记录</span>
+            </el-menu-item>
+            <el-menu-item index="4">
+              <i class="el-icon-reading"></i>
+              <span slot="title">入库</span>
             </el-menu-item>
           </el-menu>
         </el-aside>

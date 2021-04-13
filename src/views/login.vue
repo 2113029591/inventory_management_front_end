@@ -1,8 +1,8 @@
 <template>
   <el-form
-      :model="formData"
+      :model="userData"
       :rules="rules2"
-      ref="formData"
+      ref="userData"
       label-position="left"
       label-width="0px"
       class="demo-ruleForm login-container"
@@ -11,7 +11,7 @@
     <el-form-item prop="account">
       <el-input
           type="text"
-          v-model="formData.account"
+          v-model="userData.account"
           prefix-icon="fa fa-user"
           auto-complete="on"
           placeholder="账号"
@@ -21,7 +21,7 @@
     <el-form-item prop="password">
       <el-input
           :type="pwdType"
-          v-model="formData.password"
+          v-model="userData.password"
           prefix-icon="fa fa-lock"
           auto-complete="off"
           placeholder="密码"
@@ -44,11 +44,12 @@
 </template>
 
 <script>
+import {login} from "@/api/login"
 export default {
 name: "login",
   data:function (){
     return{
-      formData: {
+      userData: {
         account: "",
         password: "",
         type: 2
@@ -78,8 +79,29 @@ name: "login",
       }
     },
 
-    handleLogin(){
-      this.$router.push("/home")
+    handleLogin(userData){
+      // this.$router.push("/home")
+      this.$refs.userData.validate(valid=>{
+        if(valid){
+          this.loginLoading=false
+          login(userData).then(resp=>{
+            if(resp.data.code==0){
+              this.$router.push("/home")
+              this.$message({
+                message: "登录成功！",
+                type: "success"
+              })
+            } else {
+              this.$message({
+                message: resp.data.msg,
+                type: "error"
+              });
+            }
+          }).catch(()=>{
+            this.loginLoading=false
+          })
+        }
+      })
     }
   }
 }

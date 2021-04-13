@@ -39,6 +39,7 @@ html,body{
   font-size: 12px;
   height: 100%;
   width: 100%;
+  overflow: hidden;
   /* text-align: center; */
   /* color: #2c3e50;
   margin-top: 60px; */
