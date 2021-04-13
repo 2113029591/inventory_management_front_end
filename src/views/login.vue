@@ -25,7 +25,7 @@
           prefix-icon="fa fa-lock"
           auto-complete="off"
           placeholder="密码"
-          @keyup.enter.native="handleLogin"
+          @keyup.enter.native="handleLogin(userData)"
       ></el-input>
       <span class="show-pwd" @click="showPwd">
         <i class="fa fa-eye" aria-hidden="true"></i>
@@ -35,7 +35,7 @@
       <el-button
           type="primary"
           style="width:100%;"
-          @click.native.prevent="handleLogin"
+          @click.native.prevent="handleLogin(userData)"
           :loading="loginLoading"
       >登录</el-button>
     </el-form-item>
@@ -78,12 +78,11 @@ name: "login",
         this.pwdType = "password";
       }
     },
-
     handleLogin(userData){
       // this.$router.push("/home")
       this.$refs.userData.validate(valid=>{
         if(valid){
-          this.loginLoading=false
+          this.loginLoading=true
           login(userData).then(resp=>{
             if(resp.data.code==0){
               this.$router.push("/home")

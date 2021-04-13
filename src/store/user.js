@@ -1,4 +1,6 @@
 import router from "@/router";
+import {login} from "@/api/login"
+// import {setToken} from "@/utils/auth";
 export default {
     state:{
         userInfo:null,//用户信息记录
@@ -68,5 +70,18 @@ export default {
             router.push('/login')
         },
     },
-    actions:{},
+    actions:{
+        // actionLogin({commit},userInfo){
+        //     return new Promise((resolve,reject)=>{
+        //         login(userInfo).then(res=>{
+        //             let token=res.data.data
+        //             // commit('SET_TOKEN',token);
+        //             setToken(token);
+        //             resolve(res);
+        //         }).catch(err=>{
+        //             reject(err);
+        //         })
+        //     })
+        // },
+    },
 }
