@@ -41,13 +41,14 @@
   </div>
 
   <el-tabs v-model="activeName" @tab-click="handleClick" style="background: white">
-    <el-tab-pane label="用户管理" name="first"><el-table
+    <el-tab-pane label="用户管理" name="first">
+      <el-table
         :data="tableData"
         stripe
         style="width: 100%">
       <el-table-column
           fixed
-          prop="date"
+          prop="nameCode"
           label="物品编码"
           align="center"
           >
@@ -59,27 +60,27 @@
           >
       </el-table-column>
       <el-table-column
-          prop="address"
+          prop="location"
           label="存放位置"
           align="center">
       </el-table-column>
       <el-table-column
-          prop="address"
+          prop="count"
           label="数量"
           align="center">
       </el-table-column>
       <el-table-column
-          prop="address"
+          prop="brand"
           label="品牌"
           align="center">
       </el-table-column>
       <el-table-column
-          prop="address"
+          prop="model"
           label="型号"
           align="center">
       </el-table-column>
       <el-table-column
-          prop="address"
+          prop="manufacturer"
           label="厂商"
           align="center">
       </el-table-column>
@@ -99,9 +100,180 @@
         </template>
       </el-table-column>
     </el-table></el-tab-pane>
-    <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-    <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-    <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+    <el-tab-pane label="配置管理" name="second" ><el-table
+        :data="tableDataByType"
+        stripe
+        style="width: 100%">
+      <el-table-column
+          fixed
+          prop="nameCode"
+          label="物品编码"
+          align="center"
+      >
+      </el-table-column>
+      <el-table-column
+          prop="name"
+          label="名称"
+          align="center"
+      >
+      </el-table-column>
+      <el-table-column
+          prop="location"
+          label="存放位置"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="count"
+          label="数量"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="brand"
+          label="品牌"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="model"
+          label="型号"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="manufacturer"
+          label="厂商"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          fixed="right"
+          label="操作"
+          align="center">
+        <template slot-scope="scope">
+          <el-button @click="()=>{
+            handleClick(scope.row)
+            dialogVisibleItem=true
+          }" type="text" size="small">编辑</el-button>
+          <el-button type="text" size="small">删除</el-button>
+          <el-button type="text" size="small" @click="()=>{
+            dialogVisibleChange=true
+          }">借用</el-button>
+        </template>
+      </el-table-column>
+    </el-table></el-tab-pane>
+    <el-tab-pane label="角色管理" name="third"><el-table
+        :data="tableDataByType"
+        stripe
+        style="width: 100%">
+      <el-table-column
+          fixed
+          prop="nameCode"
+          label="物品编码"
+          align="center"
+      >
+      </el-table-column>
+      <el-table-column
+          prop="name"
+          label="名称"
+          align="center"
+      >
+      </el-table-column>
+      <el-table-column
+          prop="location"
+          label="存放位置"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="count"
+          label="数量"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="brand"
+          label="品牌"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="model"
+          label="型号"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="manufacturer"
+          label="厂商"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          fixed="right"
+          label="操作"
+          align="center">
+        <template slot-scope="scope">
+          <el-button @click="()=>{
+            handleClick(scope.row)
+            dialogVisibleItem=true
+          }" type="text" size="small">编辑</el-button>
+          <el-button type="text" size="small">删除</el-button>
+          <el-button type="text" size="small" @click="()=>{
+            dialogVisibleChange=true
+          }">借用</el-button>
+        </template>
+      </el-table-column>
+    </el-table></el-tab-pane>
+    <el-tab-pane label="定时任务补偿" name="fourth" ><el-table
+        :data="tableDataByType"
+        stripe
+        style="width: 100%">
+      <el-table-column
+          fixed
+          prop="nameCode"
+          label="物品编码"
+          align="center"
+      >
+      </el-table-column>
+      <el-table-column
+          prop="name"
+          label="名称"
+          align="center"
+      >
+      </el-table-column>
+      <el-table-column
+          prop="location"
+          label="存放位置"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="count"
+          label="数量"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="brand"
+          label="品牌"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="model"
+          label="型号"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="manufacturer"
+          label="厂商"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          fixed="right"
+          label="操作"
+          align="center">
+        <template slot-scope="scope">
+          <el-button @click="()=>{
+            handleClick(scope.row)
+            dialogVisibleItem=true
+          }" type="text" size="small">编辑</el-button>
+          <el-button type="text" size="small">删除</el-button>
+          <el-button type="text" size="small" @click="()=>{
+            dialogVisibleChange=true
+          }">借用</el-button>
+        </template>
+      </el-table-column>
+    </el-table></el-tab-pane>
   </el-tabs>
 
   <el-dialog title="新增用户"
@@ -195,7 +367,7 @@
 </template>
 
 <script>
-import {getWarehouseInfo} from "@/api/warehouse";
+import {getWarehouseInfo,getWarehouseInfos,getWarehouseByType} from "@/api/warehouse";
 
 export default {
   name: "itemInformation",
@@ -204,6 +376,16 @@ export default {
       dialogVisible: false,
       dialogVisibleItem:false,
       dialogVisibleChange:false,
+
+      limit:{
+        limit:5,
+        page:0
+      },
+      limitByType:{
+        limit:5,
+        page:0,
+        type:1,
+      },
 
       userData: {
         date: '2018-08-16',
@@ -217,30 +399,27 @@ export default {
         phone: ''
       },
       activeName: 'first',
-      tableData: [
-          {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }],
+      tableData: [],
+      tableDataByType:[],
     };
   },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
-    },
+    handleClick(tab) {
+      if(tab.name == 'second'){
+        // 触发‘配置管理’事件
+        this.second(this.changeLimitByType(1));
+      }
+      else if(tab.name == 'third'){
+        this.thrid(this.changeLimitByType(2))
+      }
+      else if(tab.name == 'fourth'){
+        this.fourth(this.changeLimitByType(3))
+      }
+      else{
+        // 触发‘用户管理’事件
+        this.first();
+      }
+      },
     closeDialog(){
       this.dialogVisible=!this.dialogVisible
     },
@@ -254,7 +433,31 @@ export default {
       getWarehouseInfo(id).then(res=>{
         console.log(res);
       })
+    },
+    //获得所有信息
+    getInfos(){
+      getWarehouseInfos(this.limit).then(resp=>{
+        let itemData=resp.data.data.records
+        console.log(itemData);
+        this.tableData=itemData
+      })
+    },
+    //按类查找
+    getInfosByType(){
+      getWarehouseByType(this.limitByType).then(resp=>{
+        let dataByType=resp.data.data.records
+        this.tableDataByType=dataByType
+      })
+    },
+    changeLimitByType(type){
+      this.limitByType.type=type;
+      this.getInfosByType();
     }
+
+  },
+  created:function () {
+    this.getInfos();
+    this.getInfosByType();
   }
 }
 </script>
