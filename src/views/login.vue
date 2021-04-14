@@ -45,6 +45,7 @@
 
 <script>
 import {login} from "@/api/login"
+import {setToken} from "@/utils/auth";
 export default {
 name: "login",
   data:function (){
@@ -84,6 +85,8 @@ name: "login",
         if(valid){
           this.loginLoading=true
           login(userData).then(resp=>{
+            let token=resp.data.data
+            setToken(token);
             if(resp.data.code==0){
               this.$router.push("/home")
               this.$message({

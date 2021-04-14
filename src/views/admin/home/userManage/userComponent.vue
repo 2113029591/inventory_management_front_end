@@ -64,30 +64,51 @@
 
   <el-dialog title="新增用户"
              :visible.sync="dialogVisible"
-             width="25%">
+             width="50%">
     <el-form :model="userData"
              ref="userDataForm"
              label-width="100px"
              class="demo-ruleForm">
-      <el-form-item label="用户名"
-                    prop="name"
-                    :rules="[{ required: true, message: '姓名不能为空'},]">
+      <el-form-item label="账号"
+                    prop="account"
+                    :rules="[{ required: true, message: '账号不能为空'},]">
         <el-input type="text"
-                  v-model="userData.name"
+                  v-model="userData.account"
+                  autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="密码"
+                    prop="name"
+                    :rules="[{ required: true, message: '密码不能为空'},]">
+        <el-input type="password"
+                  v-model="userData.password"
+                  autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="姓名"
+                    prop="realname"
+                    :rules="[{ required: true, message: '地址不能为空'},]">
+        <el-input type="text"
+                  v-model="userData.realname"
+                  autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="电话"
+                    prop="phone"
+                    :rules="[{ required: true, message: '地址不能为空'},]">
+        <el-input type="text"
+                  v-model="userData.phone"
+                  autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="地址"
+                    prop="position"
+                    :rules="[{ required: true, message: '地址不能为空'},]">
+        <el-input type="text"
+                  v-model="userData.position"
                   autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="类型"
-                    prop="name"
-                    :rules="[{ required: true, message: '姓名不能为空'},]">
-        <el-input type="text"
-                  v-model="userData.name"
-                  autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="默认密码"
-                    prop="address"
+                    prop="type"
                     :rules="[{ required: true, message: '地址不能为空'},]">
         <el-input type="text"
-                  v-model="userData.address"
+                  v-model="userData.type"
                   autocomplete="off"></el-input>
       </el-form-item>
     </el-form>
@@ -98,13 +119,15 @@
                     dialogVisible = false
                     }">取 消</el-button>
                 <el-button type="primary"
-                           @click="submitForm('userDataForm')">确 定</el-button>
+                           @click="createUserData">确 定</el-button>
             </span>
   </el-dialog>
 </div>
 </template>
 
 <script>
+import {userCreate} from "@/api/user";
+
 export default {
 name: "userComponent",
   data(){
@@ -118,9 +141,12 @@ name: "userComponent",
     },
     dialogVisible: false,
     userData: {
-      date: '2018-08-16',
-      name: '',
-      address: ''
+      account:"",
+      password:"",
+      realname:"",
+      phone: '',
+      position: '',
+      type:1,
     },
     tableData: [{
       date: '2016-05-02',
@@ -154,6 +180,15 @@ name: "userComponent",
     handleDelete (index, row) {
       console.log(index, row);
     },
+    createUserData(){
+      userCreate(this.userData).then(resp=>{
+        console.log(resp)
+        this.$message({
+          message: "注册成功！",
+          type: "success"
+        })
+      })
+    }
   }
 }
 </script>

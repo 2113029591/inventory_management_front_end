@@ -3,7 +3,13 @@
   <div class="add-and-query">
     <div class="top-div-button">
       <el-button type="primary" class="add-button"
-                 @click="dialogVisible = true">新增记录</el-button>
+                 @click="()=>{
+                   dialogVisible = true
+                 }">新增记录</el-button>
+    </div>
+    <div>
+      <el-button type="primary" class="add-button"
+                 @click="queryTest(4)">test</el-button>
     </div>
     <el-form :inline="true"
               :model="searchForm"
@@ -189,6 +195,8 @@
 </template>
 
 <script>
+import {getWarehouseInfo} from "@/api/warehouse";
+
 export default {
   name: "itemInformation",
   data() {
@@ -242,6 +250,11 @@ export default {
     closeChangeDialog(){
       this.dialogVisibleChange=!this.dialogVisibleChange
     },
+    queryTest(id){
+      getWarehouseInfo(id).then(res=>{
+        console.log(res);
+      })
+    }
   }
 }
 </script>

@@ -1,5 +1,5 @@
 import router from "@/router";
-import {login} from "@/api/login"
+// import {login} from "@/api/login"
 // import {setToken} from "@/utils/auth";
 export default {
     state:{
