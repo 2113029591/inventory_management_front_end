@@ -4,13 +4,14 @@
     <div class="top-div-button">
       <el-button type="primary" class="add-button"
                  @click="()=>{
-                   dialogVisible = true
-                 }">新增记录</el-button>
+                   this.dialogVisible = true
+                 }">新增物品</el-button>
     </div>
-    <div>
-      <el-button type="primary" class="add-button"
-                 @click="queryTest(4)">test</el-button>
-    </div>
+<!--    <div>-->
+<!--      <el-button type="primary" class="add-button"-->
+<!--                 @click="queryTest(4)">test</el-button>-->
+<!--    </div>-->
+<!--    查询-->
     <el-form :inline="true"
               :model="searchForm"
               class="demo-form-inline search-form">
@@ -40,8 +41,9 @@
   </el-form>
   </div>
 
-  <el-tabs v-model="activeName" @tab-click="handleClick" style="background: white">
-    <el-tab-pane label="用户管理" name="first">
+  <el-tabs v-model="activeName" type="card" @tab-click="handleClick" style="background: white"
+  align="center">
+    <el-tab-pane label="所有设备" name="first">
       <el-table
         :data="tableData"
         stripe
@@ -100,7 +102,7 @@
         </template>
       </el-table-column>
     </el-table></el-tab-pane>
-    <el-tab-pane label="配置管理" name="second" ><el-table
+    <el-tab-pane label="项目型设备" name="second" ><el-table
         :data="tableDataByType"
         stripe
         style="width: 100%">
@@ -158,7 +160,7 @@
         </template>
       </el-table-column>
     </el-table></el-tab-pane>
-    <el-tab-pane label="角色管理" name="third"><el-table
+    <el-tab-pane label="业务常备型设备" name="third"><el-table
         :data="tableDataByType"
         stripe
         style="width: 100%">
@@ -216,7 +218,7 @@
         </template>
       </el-table-column>
     </el-table></el-tab-pane>
-    <el-tab-pane label="定时任务补偿" name="fourth" ><el-table
+    <el-tab-pane label="固定资产" name="fourth" ><el-table
         :data="tableDataByType"
         stripe
         style="width: 100%">
@@ -274,6 +276,65 @@
         </template>
       </el-table-column>
     </el-table></el-tab-pane>
+    <el-tab-pane label="消耗品" name="fifth" ><el-table
+        :data="tableDataByType"
+        stripe
+        style="width: 100%">
+      <el-table-column
+          fixed
+          prop="nameCode"
+          label="物品编码"
+          align="center"
+      >
+      </el-table-column>
+      <el-table-column
+          prop="name"
+          label="名称"
+          align="center"
+      >
+      </el-table-column>
+      <el-table-column
+          prop="location"
+          label="存放位置"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="count"
+          label="数量"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="brand"
+          label="品牌"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="model"
+          label="型号"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="manufacturer"
+          label="厂商"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          fixed="right"
+          label="操作"
+          align="center">
+        <template slot-scope="scope">
+          <el-button @click="()=>{
+            handleClick(scope.row)
+            dialogVisibleItem=true
+          }" type="text" size="small">编辑</el-button>
+          <el-button type="text" size="small">删除</el-button>
+          <el-button type="text" size="small" @click="()=>{
+            dialogVisibleChange=true
+          }">借用</el-button>
+        </template>
+      </el-table-column>
+    </el-table></el-tab-pane>
+    <el-tab-pane label="查询" name="sixth" v-if="false">查询</el-tab-pane>
   </el-tabs>
 
   <el-dialog title="新增用户"
@@ -414,6 +475,9 @@ export default {
       }
       else if(tab.name == 'fourth'){
         this.fourth(this.changeLimitByType(3))
+      }
+      else if(tab.name == 'fifth'){
+        this.fourth(this.changeLimitByType(4))
       }
       else{
         // 触发‘用户管理’事件

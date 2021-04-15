@@ -23,11 +23,10 @@
   </el-form>
   <el-table :data="tableData"
             style="width: 100%">
-    <el-table-column label="日期"
+    <el-table-column label="用户名"
                      width="180">
       <template slot-scope="scope">
-        <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{ scope.row.date }}</span>
+        <span style="margin-left: 10px">{{ scope.row.account }}</span>
       </template>
     </el-table-column>
     <el-table-column label="姓名"
@@ -115,8 +114,8 @@
     <span slot="footer"
           class="dialog-footer">
                 <el-button @click="()=>{
-                    resetForm('userDataForm')
-                    dialogVisible = false
+                    // resetForm('userDataForm')
+                    this.dialogVisible = false
                     }">取 消</el-button>
                 <el-button type="primary"
                            @click="createUserData">确 定</el-button>
@@ -127,6 +126,7 @@
 
 <script>
 import {userCreate} from "@/api/user";
+import {getUserInfos} from "@/api/admin";
 
 export default {
 name: "userComponent",
@@ -148,23 +148,12 @@ name: "userComponent",
       position: '',
       type:1,
     },
-    tableData: [{
-      date: '2016-05-02',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1518 弄'
-    }, {
-      date: '2016-05-04',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1517 弄'
-    }, {
-      date: '2016-05-01',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1519 弄'
-    }, {
-      date: '2016-05-03',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1516 弄'
-    }],
+    tableData: [],
+
+    limit:{
+      limit:5,
+      page:1,
+    }
   }
   },
   methods:{
@@ -180,6 +169,7 @@ name: "userComponent",
     handleDelete (index, row) {
       console.log(index, row);
     },
+    //添加用户
     createUserData(){
       userCreate(this.userData).then(resp=>{
         console.log(resp)
@@ -188,8 +178,19 @@ name: "userComponent",
           type: "success"
         })
       })
+    },
+    getTotalUserData(){
+      getUserInfos(this.limit).then(resp=>{
+        let userTotal=resp.data.data.records
+        this.tableData=userTotal
+        console.log(resp);
+      })
     }
+  },
+  created() {
+  this.getTotalUserData();
   }
+
 }
 </script>
 
